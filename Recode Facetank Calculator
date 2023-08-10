@@ -1,0 +1,276 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    //creature 1
+    
+    //survivability
+    bool FirstCreatureIsAWarden = false;
+    bool FirstCreatureHasGuilt = false;
+    int FirstCreatureMaxHealth = 1000;
+    int FirstCreatureHealth = FirstCreatureMaxHealth;
+    float FirstCreatureHealthRegen = 0;
+    int FirstCreatureWeight = 1000;
+    float FirstCreatureBleedDefense = 0;
+    float FirstCreaturePoisoningDefense = 0;
+    float FirstCreatureBurnDefense = 0;
+    
+    //defense
+    float FirstCreatureThorns = 0;
+    float FirstCreatureDefensiveBurn = 0;
+    float FirstCreaturePoison = 0;
+    
+    //offense
+    int FirstCreatureDamage = 10;
+    float FirstCreatureAttackSpeed = 0.8;
+    float FirstCreatureBleed = 1;
+    float FirstCreatureVenom = 0;
+    float FirstCreatureBurn = 0;
+    
+    //creature 2
+    
+    //survivability
+    bool SecondCreatureIsAWarden = false;
+    bool SecondCreatureHasGuilt = false;
+    int SecondCreatureMaxHealth = 1000;
+    int SecondCreatureHealth = SecondCreatureMaxHealth;
+    float SecondCreatureHealthRegen = 0;
+    int SecondCreatureWeight = 100;
+    float SecondCreatureBleedDefense = 0;
+    float SecondCreaturePoisoningDefense = 0;
+    float SecondCreatureBurnDefense = 0;
+    
+    //defense
+    float SecondCreatureThorns = 0;
+    float SecondCreatureDefensiveBurn = 0;
+    float SecondCreaturePoison = 0;
+    
+    //offense
+    int SecondCreatureDamage = 100;
+    float SecondCreatureAttackSpeed = 0.8;
+    float SecondCreatureBleed = 0;
+    float SecondCreatureVenom = 0;
+    float SecondCreatureBurn = 0;
+    
+    
+    float FirstCreatureWeightDifference = 0;
+    float SecondCreatureWeightDifference = 0;
+    
+    
+    FirstCreatureWeightDifference = FirstCreatureWeight / SecondCreatureWeight;
+    
+    if (FirstCreatureWeightDifference < 0.5)
+    {
+        FirstCreatureWeightDifference = 0.5;
+    }
+    else if (FirstCreatureWeightDifference > 2)
+    {
+        FirstCreatureWeightDifference = 2;
+    }
+    
+    SecondCreatureWeightDifference = SecondCreatureWeight / FirstCreatureWeight;
+    
+    if (SecondCreatureWeightDifference < 0.5)
+    {
+        SecondCreatureWeightDifference = 0.5;
+    }
+    else if (SecondCreatureWeightDifference > 2)
+    {
+        SecondCreatureWeightDifference = 2;
+    }
+    
+    FirstCreatureDamage = FirstCreatureDamage * FirstCreatureWeightDifference;
+    SecondCreatureDamage = SecondCreatureDamage * SecondCreatureWeightDifference;
+    
+    if (FirstCreatureHasGuilt == 1)
+    {
+        SecondCreatureDamage = SecondCreatureDamage / 2;
+    }
+    if (SecondCreatureHasGuilt == 1)
+    {
+        FirstCreatureDamage = FirstCreatureDamage / 2;
+    }
+    
+    
+    //statuses
+    float FirstCreatureBleedAmount = 0;
+    float FirstCreaturePoisoningAmount = 0;
+    float FirstCreatureBurnAmount = 0;
+    
+    float SecondCreatureBleedAmount = 0;
+    float SecondCreaturePoisoningAmount = 0;
+    float SecondCreatureBurnAmount = 0;
+    
+    
+    //timings
+    float FirstCreatureAttackSpeedTiming = 0;
+    
+    float SecondCreatureAttackSpeedTiming = 0;
+    
+    float StatusTiming = 0;
+    float RegenTiming = 0;
+    
+    
+    while (FirstCreatureHealth > 0 && SecondCreatureHealth > 0)
+    {
+        FirstCreatureAttackSpeedTiming += 0.1;
+        SecondCreatureAttackSpeedTiming += 0.1;
+        StatusTiming += 0.1;
+        
+        if (FirstCreatureIsAWarden == true)
+        {
+            float FirstWardenDamageMulti = 1;
+            float FirstWardenHealthDifference = 2 * (FirstCreatureHealth / FirstCreatureMaxHealth);
+            FirstWardenDamageMulti += 7.5 * (1 - FirstWardenHealthDifference);
+            if (FirstWardenDamageMulti > 8.5)
+            {
+                FirstWardenDamageMulti = 8.5;
+            }
+        }
+        if (SecondCreatureIsAWarden == true)
+        {
+            float SecondWardenDamageMulti = 1;
+            float SecondWardenHealthDifference = 2 * (SecondCreatureHealth / SecondCreatureMaxHealth)
+            SecondWardenDamageMulti += 7.5 * (1 - FirstWardenHealthDifference);
+            if (SecondWardenDamageMulti > 8.5)
+            {
+                SecondWardenDamageMulti = 8.5;
+            }
+        }
+        
+        if (FirstCreatureAttackSpeedTiming >= FirstCreatureAttackSpeed)
+        {
+            SecondCreatureHealth -= FirstCreatureDamage;
+            SecondCreatureBleedAmount += FirstCreatureBleed * (1 - SecondCreatureBleedDefense);
+            SecondCreaturePoisoningAmount += FirstCreatureVenom * (1 - SecondCreaturePoisoningDefense);
+            SecondCreatureBurnAmount += FirstCreatureBurn * (1 - SecondCreatureBurnDefense);
+            
+            FirstCreatureBleedAmount += SecondCreatureThorns;
+            FirstCreaturePoisoningAmount += SecondCreaturePoison * (1 - FirstCreaturePoisoningDefense);
+            FirstCreatureBurnAmount += SecondCreatureDefensiveBurn * (1 - FirstCreatureBurnDefense);
+            
+            FirstCreatureAttackSpeedTiming = 0;
+        }
+        
+        
+        if (SecondCreatureAttackSpeedTiming >= SecondCreatureAttackSpeed)
+        {
+            FirstCreatureHealth -= SecondCreatureDamage;
+            FirstCreatureBleedAmount += SecondCreatureBleed * (1 - FirstCreatureBleedDefense);
+            FirstCreaturePoisoningAmount += SecondCreatureVenom * (1 - FirstCreaturePoisoningDefense);
+            FirstCreatureBurnAmount += SecondCreatureBurn * (1 - FirstCreatureBurnDefense);
+            
+            SecondCreatureBleedAmount += FirstCreatureThorns;
+            SecondCreaturePoisoningAmount += FirstCreaturePoison * (1 - FirstCreaturePoisoningDefense);
+            SecondCreatureBurnAmount += FirstCreatureDefensiveBurn * (1 - FirstCreatureBurnDefense);
+            
+            SecondCreatureAttackSpeedTiming = 0;
+        }
+        
+        
+        if (RegenTiming >= 10)
+        {
+            if (FirstCreatureBleedAmount == 0 && FirstCreatureBurnAmount == 0)
+            {
+                FirstCreatureHealth += FirstCreatureMaxHealth * FirstCreatureHealthRegen;
+            }
+            
+            if (SecondCreatureBleedAmount == 0 && SecondCreatureBurnAmount == 0)
+            {
+                SecondCreatureHealth += SecondCreatureMaxHealth * SecondCreatureHealthRegen;
+            }
+            
+            RegenTiming = 0;
+        }
+        
+        
+        if (StatusTiming >= 3)
+        {
+            FirstCreatureHealth -= FirstCreatureBleedAmount * 2;
+            
+            if (FirstCreatureBurnAmount > 0)
+            {
+                FirstCreatureHealth -= 1 + (FirstCreatureBurnAmount * 0.5);
+            }
+            
+            if (FirstCreaturePoisoningAmount > 0)
+            {
+                FirstCreatureHealth -= 1 + (FirstCreaturePoisoningAmount * 0.5);
+            }
+            
+            FirstCreatureBleedAmount -= 1;
+            FirstCreaturePoisoningAmount -= 1;
+            FirstCreatureBurnAmount -= 1;
+            
+            if (FirstCreatureBleedAmount > 0)
+            {
+                FirstCreatureBleedAmount = 0;
+            }
+            
+            if (FirstCreaturePoisoningAmount > 0)
+            {
+                FirstCreaturePoisoningAmount = 0;
+            }
+            
+            if (FirstCreatureBurnAmount > 0)
+            {
+                FirstCreatureBurnAmount = 0;
+            }
+            
+            
+            SecondCreatureHealth -= SecondCreatureBleedAmount * 2;
+            
+            if (SecondCreatureBurnAmount > 0)
+            {
+                SecondCreatureHealth -= 1 + (SecondCreatureBurnAmount * 0.5);
+            }
+            
+            if (SecondCreaturePoisoningAmount > 0)
+            {
+                SecondCreatureHealth -= 1 + (SecondCreaturePoisoningAmount * 0.5);
+            }
+            
+            SecondCreatureBleedAmount -= 1;
+            SecondCreaturePoisoningAmount -= 1;
+            SecondCreatureBurnAmount -= 1;
+            
+            if (SecondCreatureBleedAmount > 0)
+            {
+                SecondCreatureBleedAmount = 0;
+            }
+            
+            if (SecondCreaturePoisoningAmount > 0)
+            {
+                SecondCreaturePoisoningAmount = 0;
+            }
+            
+            if (SecondCreatureBurnAmount > 0)
+            {
+                SecondCreatureBurnAmount = 0;
+            }
+            
+            StatusTiming = 0;
+        }
+        
+        
+        cout << "First Creature Health: " << FirstCreatureHealth << endl;
+        cout << "Second Creature Health: " << SecondCreatureHealth << endl << endl;
+    }
+    
+    if (FirstCreatureHealth > SecondCreatureHealth)
+    {
+        cout << "First Creature Wins";
+    }
+    
+    else if (SecondCreatureHealth > FirstCreatureHealth)
+    {
+        cout << "Second Creature Wins";
+    }
+    
+    else
+    {
+        cout << "It Was Likely A Tie";
+    }
+}
