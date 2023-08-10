@@ -54,7 +54,7 @@ int main()
     
     //offense
     int SecondCreatureDamage = 50;
-    float SecondCreatureAttackSpeed = 0.1;
+    float SecondCreatureAttackSpeed = 0.8;
     float SecondCreatureBleed = 6;
     float SecondCreatureVenom = 0;
     float SecondCreatureBurn = 0;
@@ -155,11 +155,18 @@ int main()
         {
             if (FirstCreatureIsAWarden == true)
             {
-                float FirstWardenDamageMulti = 0;
-                float FirstWardenHealthDifference = FirstCreatureHealth / FirstCreatureMaxHealth;
-                FirstWardenHealthDifference = 1 - FirstWardenHealthDifference;
-                FirstWardenDamageMulti = 8.5 * FirstWardenHealthDifference;
-                SecondCreatureHealth -= FirstCreatureDamage * FirstWardenDamageMulti;
+                float FirstWardenDamageMulti = 7.5;
+                float FirstWardenHealthPerc = FirstCreatureHealth;
+                FirstWardenHealthPerc = FirstWardenHealthPerc / FirstCreatureMaxHealth;
+                FirstWardenHealthPerc = 1 - FirstWardenHealthPerc;
+                FirstWardenHealthPerc = FirstWardenHealthPerc * 2;
+                if (FirstWardenHealthPerc > 1)
+                {
+                    FirstWardenHealthPerc = 1;
+                }
+                FirstWardenDamageMulti = FirstWardenDamageMulti * FirstWardenHealthPerc;
+                FirstWardenDamageMulti++;
+                FirstCreatureHealth -= FirstCreatureDamage * FirstWardenDamageMulti;
                 cout << FirstCreatureName << " bit for " << FirstCreatureDamage * FirstWardenDamageMulti << " damage...\n";
             }
             
@@ -184,10 +191,17 @@ int main()
         {
             if (SecondCreatureIsAWarden == true)
             {
-                float SecondWardenDamageMulti = 0;
-                float SecondWardenHealthDifference = SecondCreatureHealth / SecondCreatureMaxHealth;
-                SecondWardenHealthDifference = 1 - SecondWardenHealthDifference;
-                SecondWardenDamageMulti = 8.5 * SecondWardenHealthDifference;
+                float SecondWardenDamageMulti = 7.5;
+                float SecondWardenHealthPerc = SecondCreatureHealth;
+                SecondWardenHealthPerc = SecondWardenHealthPerc / SecondCreatureMaxHealth;
+                SecondWardenHealthPerc = 1 - SecondWardenHealthPerc;
+                SecondWardenHealthPerc = SecondWardenHealthPerc * 2;
+                if (SecondWardenHealthPerc > 1)
+                {
+                    SecondWardenHealthPerc = 1;
+                }
+                SecondWardenDamageMulti = SecondWardenDamageMulti * SecondWardenHealthPerc;
+                SecondWardenDamageMulti++;
                 FirstCreatureHealth -= SecondCreatureDamage * SecondWardenDamageMulti;
                 cout << SecondCreatureName << " bit for " << SecondCreatureDamage * SecondWardenDamageMulti << " damage...\n";
             }
@@ -323,9 +337,12 @@ int main()
             StatusTiming = 0;
         }
         
+        float FirstCreatureHealthPerc = 100 * FirstCreatureHealth / FirstCreatureMaxHealth;
+        float SecondCreatureHealthPerc = 100 * SecondCreatureHealth / SecondCreatureMaxHealth;
         
-        cout << FirstCreatureName << "'s Health: " << FirstCreatureHealth << endl;
-        cout << SecondCreatureName << "'s Health: " << SecondCreatureHealth << endl << endl << endl;
+        cout << FirstCreatureName << "'s Health: " << FirstCreatureHealth << " (~" << FirstCreatureHealthPerc << "%)\n";
+        cout << SecondCreatureName << "'s Health: " << SecondCreatureHealth << " (~" << SecondCreatureHealthPerc << "%)\n";
+        cout << "Timestamp: " << TimeElapsed << " seconds...\n\n\n";
     }
     
     bool WinningCreature = 0;
