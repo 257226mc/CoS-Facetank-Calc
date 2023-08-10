@@ -7,6 +7,7 @@ int main()
     //creature 1
     
     //survivability
+    string FirstCreatureName = "First creature";
     bool FirstCreatureIsAWarden = false;
     bool FirstCreatureHasGuilt = false;
     int FirstCreatureMaxHealth = 1000;
@@ -32,6 +33,7 @@ int main()
     //creature 2
     
     //survivability
+    string SecondCreatureName = "Second creature";
     bool SecondCreatureIsAWarden = false;
     bool SecondCreatureHasGuilt = false;
     int SecondCreatureMaxHealth = 1000;
@@ -106,11 +108,15 @@ int main()
     
     //timings
     float FirstCreatureAttackSpeedTiming = 0;
-    
     float SecondCreatureAttackSpeedTiming = 0;
     
     float StatusTiming = 0;
     float RegenTiming = 0;
+    
+    //tracking
+    float TimeElapsed = 0;
+    int FirstCreatureAttackAmount = 0;
+    int SecondCreatureAttackAmount = 0;
     
     
     while (FirstCreatureHealth > 0 && SecondCreatureHealth > 0)
@@ -118,6 +124,8 @@ int main()
         FirstCreatureAttackSpeedTiming += 0.1;
         SecondCreatureAttackSpeedTiming += 0.1;
         StatusTiming += 0.1;
+        
+        TimeElapsed += 0.1;
         
         if (FirstCreatureIsAWarden == true)
         {
@@ -129,16 +137,18 @@ int main()
                 FirstWardenDamageMulti = 8.5;
             }
         }
+        
         if (SecondCreatureIsAWarden == true)
         {
             float SecondWardenDamageMulti = 1;
-            float SecondWardenHealthDifference = 2 * (SecondCreatureHealth / SecondCreatureMaxHealth)
-            SecondWardenDamageMulti += 7.5 * (1 - FirstWardenHealthDifference);
+            float SecondWardenHealthDifference = 2 * (SecondCreatureHealth / SecondCreatureMaxHealth);
+            SecondWardenDamageMulti += 7.5 * (1 - SecondWardenHealthDifference);
             if (SecondWardenDamageMulti > 8.5)
             {
                 SecondWardenDamageMulti = 8.5;
             }
         }
+        
         
         if (FirstCreatureAttackSpeedTiming >= FirstCreatureAttackSpeed)
         {
@@ -152,8 +162,8 @@ int main()
             FirstCreatureBurnAmount += SecondCreatureDefensiveBurn * (1 - FirstCreatureBurnDefense);
             
             FirstCreatureAttackSpeedTiming = 0;
+            FirstCreatureAttackAmount++;
         }
-        
         
         if (SecondCreatureAttackSpeedTiming >= SecondCreatureAttackSpeed)
         {
@@ -167,6 +177,7 @@ int main()
             SecondCreatureBurnAmount += FirstCreatureDefensiveBurn * (1 - FirstCreatureBurnDefense);
             
             SecondCreatureAttackSpeedTiming = 0;
+            SecondCreatureAttackAmount++;
         }
         
         
@@ -204,17 +215,17 @@ int main()
             FirstCreaturePoisoningAmount -= 1;
             FirstCreatureBurnAmount -= 1;
             
-            if (FirstCreatureBleedAmount > 0)
+            if (FirstCreatureBleedAmount < 0)
             {
                 FirstCreatureBleedAmount = 0;
             }
             
-            if (FirstCreaturePoisoningAmount > 0)
+            if (FirstCreaturePoisoningAmount < 0)
             {
                 FirstCreaturePoisoningAmount = 0;
             }
             
-            if (FirstCreatureBurnAmount > 0)
+            if (FirstCreatureBurnAmount < 0)
             {
                 FirstCreatureBurnAmount = 0;
             }
@@ -236,17 +247,17 @@ int main()
             SecondCreaturePoisoningAmount -= 1;
             SecondCreatureBurnAmount -= 1;
             
-            if (SecondCreatureBleedAmount > 0)
+            if (SecondCreatureBleedAmount < 0)
             {
                 SecondCreatureBleedAmount = 0;
             }
             
-            if (SecondCreaturePoisoningAmount > 0)
+            if (SecondCreaturePoisoningAmount < 0)
             {
                 SecondCreaturePoisoningAmount = 0;
             }
             
-            if (SecondCreatureBurnAmount > 0)
+            if (SecondCreatureBurnAmount < 0)
             {
                 SecondCreatureBurnAmount = 0;
             }
@@ -255,22 +266,49 @@ int main()
         }
         
         
-        cout << "First Creature Health: " << FirstCreatureHealth << endl;
-        cout << "Second Creature Health: " << SecondCreatureHealth << endl << endl;
+        cout << FirstCreatureName << "'s Health: " << FirstCreatureHealth << endl;
+        cout << SecondCreatureName << "'s Health: " << SecondCreatureHealth << endl << endl << endl;
     }
+    
+    bool WinningCreature = 0;
     
     if (FirstCreatureHealth > SecondCreatureHealth)
     {
-        cout << "First Creature Wins";
+        WinningCreature = 0;
     }
     
     else if (SecondCreatureHealth > FirstCreatureHealth)
     {
-        cout << "Second Creature Wins";
+        WinningCreature = 1;
     }
     
     else
     {
-        cout << "It Was Likely A Tie";
+        cout << "The battle was a tie or something went wrong...";
     }
+    
+    
+    if (WinningCreature == 0)
+    {
+        cout << FirstCreatureName << " wins\n";
+        cout << FirstCreatureName << " had " << FirstCreatureHealth << "/" << FirstCreatureMaxHealth << " health left.\n";
+        if (FirstCreatureBleedAmount > 0 || FirstCreaturePoisoningAmount > 0 || FirstCreatureBurnAmount > 0)
+        {
+            cout << FirstCreatureName << " still had " << FirstCreatureBleedAmount << " bleed, " << FirstCreaturePoisoningAmount << " poison and " << FirstCreatureBurnAmount << " burn.\n";
+        }
+    }
+    
+    else if (WinningCreature == 1)
+    {
+        cout << SecondCreatureName << " wins\n";
+        cout << SecondCreatureName << " had " << SecondCreatureHealth << "/" << SecondCreatureMaxHealth << " health left.\n";
+        if (SecondCreatureBleedAmount > 0 || SecondCreaturePoisoningAmount > 0 || SecondCreatureBurnAmount > 0)
+        {
+            cout << SecondCreatureName << " still had " << SecondCreatureBleedAmount << " bleed, " << SecondCreaturePoisoningAmount << " poison and " << SecondCreatureBurnAmount << " burn.\n";
+        }
+    }
+    
+    cout << "This battle took/would take about " << TimeElapsed << " seconds.\n\n";
+    cout << FirstCreatureName << " attacked " << FirstCreatureAttackAmount << " times.\n";
+    cout << SecondCreatureName << " attacked " << SecondCreatureAttackAmount << " times.\n";
 }
