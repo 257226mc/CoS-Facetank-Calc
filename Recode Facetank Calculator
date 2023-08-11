@@ -23,6 +23,7 @@ int main()
     float FirstCreatureThorns = 0;
     float FirstCreatureDefensiveBurn = 0;
     float FirstCreaturePoison = 0;
+    bool FirstCreatureHasRadiation = 0;
     
     //offense
     int FirstCreatureDamage = 200;
@@ -51,6 +52,7 @@ int main()
     float SecondCreatureThorns = 0;
     float SecondCreatureDefensiveBurn = 0;
     float SecondCreaturePoison = 0;
+    bool SecondCreatureHasRadiation = 0;
     
     //offense
     int SecondCreatureDamage = 50;
@@ -72,6 +74,46 @@ int main()
         SecondCreatureWeight += SecondCreatureWeight * 0.2;
     }
     
+    
+    //statuses
+    float FirstCreatureBleedAmount = 0;
+    float FirstCreaturePoisoningAmount = 0;
+    float FirstCreatureBurnAmount = 0;
+    float FirstCreatureCorrosionAmount = 0;
+    
+    float SecondCreatureBleedAmount = 0;
+    float SecondCreaturePoisoningAmount = 0;
+    float SecondCreatureBurnAmount = 0;
+    float SecondCreatureCorrosion = 0;
+    
+    
+    //timings
+    float FirstCreatureAttackSpeedTiming = 0;
+    float SecondCreatureAttackSpeedTiming = 0;
+    
+    float StatusTiming = 0;
+    float RegenTiming = 0;
+    
+    //tracking
+    float TimeElapsed = 0;
+    
+    int FirstCreatureAttackAmount = 0;
+    int FirstCreatureHealthRegened = 0;
+    
+    
+    int SecondCreatureAttackAmount = 0;
+    int SecondCreatureHealthRegened = 0;
+    
+    
+    while (FirstCreatureHealth > 0 && SecondCreatureHealth > 0)
+    {
+        FirstCreatureAttackSpeedTiming += 0.1;
+        SecondCreatureAttackSpeedTiming += 0.1;
+        StatusTiming += 0.1;
+        RegenTiming += 0.1;
+        TimeElapsed += 0.1;
+        
+        
     float FirstCreatureWeightDifference = 0;
     float SecondCreatureWeightDifference = 0;
     
@@ -111,44 +153,6 @@ int main()
     {
         FirstCreatureDamage = FirstCreatureDamage / 2;
     }
-    
-    
-    //statuses
-    float FirstCreatureBleedAmount = 0;
-    float FirstCreaturePoisoningAmount = 0;
-    float FirstCreatureBurnAmount = 0;
-    
-    float SecondCreatureBleedAmount = 0;
-    float SecondCreaturePoisoningAmount = 0;
-    float SecondCreatureBurnAmount = 0;
-    
-    
-    //timings
-    float FirstCreatureAttackSpeedTiming = 0;
-    float SecondCreatureAttackSpeedTiming = 0;
-    
-    float StatusTiming = 0;
-    float RegenTiming = 0;
-    
-    //tracking
-    float TimeElapsed = 0;
-    
-    int FirstCreatureAttackAmount = 0;
-    int FirstCreatureHealthRegened = 0;
-    
-    
-    int SecondCreatureAttackAmount = 0;
-    int SecondCreatureHealthRegened = 0;
-    
-    
-    while (FirstCreatureHealth > 0 && SecondCreatureHealth > 0)
-    {
-        FirstCreatureAttackSpeedTiming += 0.1;
-        SecondCreatureAttackSpeedTiming += 0.1;
-        StatusTiming += 0.1;
-        RegenTiming += 0.1;
-        
-        TimeElapsed += 0.1;
         
         
         if (FirstCreatureAttackSpeedTiming >= FirstCreatureAttackSpeed)
