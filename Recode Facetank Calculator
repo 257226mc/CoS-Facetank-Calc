@@ -174,12 +174,20 @@ int main()
                 FirstWardenDamageMulti = FirstWardenDamageMulti * FirstWardenHealthPerc;
                 FirstWardenDamageMulti++;
                 FirstCreatureHealth -= FirstCreatureDamage * FirstWardenDamageMulti;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " bit for " << FirstCreatureDamage * FirstWardenDamageMulti << " damage...\n";
             }
             
             else
             {
                 SecondCreatureHealth -= FirstCreatureDamage;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " bit for " << FirstCreatureDamage << " damage...\n";
             }
             
@@ -211,12 +219,20 @@ int main()
                 SecondWardenDamageMulti = SecondWardenDamageMulti * SecondWardenHealthPerc;
                 SecondWardenDamageMulti++;
                 FirstCreatureHealth -= SecondCreatureDamage * SecondWardenDamageMulti;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " bit for " << SecondCreatureDamage * SecondWardenDamageMulti << " damage...\n";
             }
             
             else
             {
                 FirstCreatureHealth -= SecondCreatureDamage;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " bit for " << SecondCreatureDamage << " damage...\n";
             }
             
@@ -239,6 +255,10 @@ int main()
             {
                 FirstCreatureHealth += FirstCreatureMaxHealth * FirstCreatureHealthRegen;
                 FirstCreatureHealthRegened += FirstCreatureMaxHealth * FirstCreatureHealthRegen;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " regened " << FirstCreatureMaxHealth * FirstCreatureHealthRegen << " health...\n";
             }
             
@@ -246,6 +266,10 @@ int main()
             {
                 SecondCreatureHealth += SecondCreatureMaxHealth * SecondCreatureHealthRegen;
                 SecondCreatureHealthRegened += SecondCreatureMaxHealth * SecondCreatureHealthRegen;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " regened " << SecondCreatureMaxHealth * SecondCreatureHealthRegen << " health...\n";
             }
             
@@ -259,6 +283,10 @@ int main()
             {
                 float FirstCreatureBleedDamage = FirstCreatureBleedAmount * 2;
                 FirstCreatureHealth -= FirstCreatureBleedDamage;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " bled for " << FirstCreatureBleedDamage << " damage...\n";
             }
             
@@ -268,6 +296,10 @@ int main()
                 FirstCreatureBurnDamage = FirstCreatureBurnDamage / 100;
                 FirstCreatureBurnDamage = FirstCreatureMaxHealth * FirstCreatureBurnDamage;
                 FirstCreatureHealth -= FirstCreatureBurnDamage;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " took " << FirstCreatureBurnDamage << " damage from its burns...\n";
             }
             
@@ -277,6 +309,10 @@ int main()
                 FirstCreaturePoisonDamage = FirstCreaturePoisonDamage / 100;
                 FirstCreaturePoisonDamage = FirstCreatureMaxHealth * FirstCreaturePoisonDamage;
                 FirstCreatureHealth -= FirstCreaturePoisonDamage;
+                if (FirstCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << FirstCreatureName << " took " << FirstCreaturePoisonDamage << " damage from its poisoning...\n";
             }
             
@@ -303,6 +339,10 @@ int main()
             {
                 float SecondCreatureBleedDamage = SecondCreatureBleedAmount * 2;
                 SecondCreatureHealth -= SecondCreatureBleedDamage;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " bled for " << SecondCreatureBleedDamage * 2 << " damage...\n";
             }
             
@@ -312,6 +352,10 @@ int main()
                 SecondCreatureBurnDamage = SecondCreatureBurnDamage / 100;
                 SecondCreatureBurnDamage = SecondCreatureMaxHealth * SecondCreatureBurnDamage;
                 SecondCreatureHealth -= SecondCreatureBurnDamage;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " took " << SecondCreatureBurnDamage << " damage from its burns...\n";
             }
             
@@ -321,6 +365,10 @@ int main()
                 SecondCreaturePoisonDamage = SecondCreaturePoisonDamage / 100;
                 SecondCreaturePoisonDamage = SecondCreatureMaxHealth * SecondCreaturePoisonDamage;
                 SecondCreatureHealth -= SecondCreaturePoisonDamage;
+                if (SecondCreatureIsElder == true)
+                {
+                    cout << "Elder ";
+                }
                 cout << SecondCreatureName << " took " << SecondCreaturePoisonDamage << " damage from its poisoning...\n";
             }
             
@@ -352,11 +400,19 @@ int main()
         cout << FirstCreatureName << "'s Health: " << FirstCreatureHealth << " (~" << FirstCreatureHealthPerc << "%)\n";
         if (FirstCreatureBleedAmount > 0 || FirstCreaturePoisoningAmount > 0 || FirstCreatureBurnAmount > 0)
         {
+            if (FirstCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
             cout << FirstCreatureName << "'s ailments: " << FirstCreatureBleedAmount << " bleed, " << FirstCreaturePoisoningAmount << " poison and " << FirstCreatureBurnAmount << " burn...\n";
         }
         cout << SecondCreatureName << "'s Health: " << SecondCreatureHealth << " (~" << SecondCreatureHealthPerc << "%)\n";
         if (SecondCreatureBleedAmount > 0 || SecondCreaturePoisoningAmount > 0 || SecondCreatureBurnAmount > 0)
         {
+            if (SecondCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
             cout << SecondCreatureName << "'s ailments: " << SecondCreatureBleedAmount << " bleed, " << SecondCreaturePoisoningAmount << " poison and " << SecondCreatureBurnAmount << " burn...\n";
         }
         cout << "Timestamp: " << TimeElapsed << " seconds...\n\n\n";
@@ -384,28 +440,84 @@ int main()
     
     if (WinningCreature == 0)
     {
-        cout << FirstCreatureName << " wins\n";
+        if (FirstCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
+        cout << FirstCreatureName << " wins in a facetank against ";
+        if (SecondCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
+        cout << SecondCreatureName << "...\n";
+        if (FirstCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
         cout << FirstCreatureName << " had " << FirstCreatureHealth << "/" << FirstCreatureMaxHealth << " (~" << FirstCreatureHealthPerc << "%) health left.\n";
-        cout << FirstCreatureName << " regened " << FirstCreatureHealthRegened << " health during the fight.\n";
+        if (FirstCreatureHealthRegened > 0)
+        {
+            if (FirstCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
+            cout << FirstCreatureName << " regened " << FirstCreatureHealthRegened << " health during the fight.\n";
+        }
         if (FirstCreatureBleedAmount > 0 || FirstCreaturePoisoningAmount > 0 || FirstCreatureBurnAmount > 0)
         {
+            if (FirstCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
             cout << FirstCreatureName << " was left with " << FirstCreatureBleedAmount << " bleed, " << FirstCreaturePoisoningAmount << " poison and " << FirstCreatureBurnAmount << " burn.\n";
         }
     }
     
     else if (WinningCreature == 1)
     {
-        cout << SecondCreatureName << " wins\n";
+        if (SecondCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
+        cout << SecondCreatureName << " wins in a facetank against ";
+        if (FirstCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
+        cout << FirstCreatureName << "...\n";
+        if (SecondCreatureIsElder == true)
+        {
+            cout << "Elder ";
+        }
         cout << SecondCreatureName << " had " << SecondCreatureHealth << "/" << SecondCreatureMaxHealth << " (~" << SecondCreatureHealthPerc << "%) health left.\n";
-        cout << SecondCreatureName << " regened " << SecondCreatureHealthRegened << " health during the fight.\n";
+        if (SecondCreatureHealthRegened > 0)
+        {
+            if (SecondCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
+            cout << SecondCreatureName << " regened " << SecondCreatureHealthRegened << " health during the fight.\n";
+        }
         if (SecondCreatureBleedAmount > 0 || SecondCreaturePoisoningAmount > 0 || SecondCreatureBurnAmount > 0)
         {
+            if (SecondCreatureIsElder == true)
+            {
+                cout << "Elder ";
+            }
             cout << SecondCreatureName << " was left with " << SecondCreatureBleedAmount << " bleed, " << SecondCreaturePoisoningAmount << " poison and " << SecondCreatureBurnAmount << " burn.\n";
         }
     }
     
     cout << "This battle took/would take about " << TimeElapsed << " seconds.\n\n";
+    if (FirstCreatureIsElder == true)
+    {
+        cout << "Elder ";
+    }
     cout << FirstCreatureName << " attacked " << FirstCreatureAttackAmount << " times.\n";
+    if (SecondCreatureIsElder == true)
+    {
+        cout << "Elder ";
+    }
     cout << SecondCreatureName << " attacked " << SecondCreatureAttackAmount << " times.\n";
     
 }
