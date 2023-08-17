@@ -7,15 +7,15 @@ int main()
     //creature 1
     
     //survivability
-    string FirstCreatureName = "Athulyth";
+    string FirstCreatureName = "Syrodon";
     bool FirstCreatureIsAWarden = false;
     bool FirstCreatureHasGuilt = false;
-    bool FirstCreatureIsElder = true;
-    int FirstCreatureMaxHealth = 8250;
+    bool FirstCreatureIsElder = false;
+    int FirstCreatureMaxHealth = 8500;
     int FirstCreatureHealth = FirstCreatureMaxHealth;
-    float FirstCreatureHealthRegen = 0.04;
-    float FirstCreatureWeight = 12500;
-    float FirstCreatureBleedDefense = 1;
+    float FirstCreatureHealthRegen = 0.06;
+    float FirstCreatureWeight = 16500;
+    float FirstCreatureBleedDefense = 0.3;
     float FirstCreaturePoisoningDefense = 0;
     float FirstCreatureBurnDefense = 0;
     
@@ -26,40 +26,42 @@ int main()
     bool FirstCreatureHasRadiation = 0;
     
     //offense
-    int FirstCreatureDamage = 200;
+    int FirstCreatureDamage = 300;
     float FirstCreatureAttackSpeed = 1;
-    float FirstCreatureBleed = 0;
+    float FirstCreatureBleed = 15;
     float FirstCreatureVenom = 0;
     float FirstCreatureBurn = 0;
+    bool FirstCreatureHasBerserk = false;
     
     
     //creature 2
     
     //survivability
-    string SecondCreatureName = "Hygos";
-    bool SecondCreatureIsAWarden = false;
+    string SecondCreatureName = "Eigion Warden";
+    bool SecondCreatureIsAWarden = true;
     bool SecondCreatureHasGuilt = false;
-    bool SecondCreatureIsElder = true; 
-    int SecondCreatureMaxHealth = 6500;
+    bool SecondCreatureIsElder = false; 
+    int SecondCreatureMaxHealth = 10000;
     int SecondCreatureHealth = SecondCreatureMaxHealth;
-    float SecondCreatureHealthRegen = 0.5;
-    float SecondCreatureWeight = 20000;
-    float SecondCreatureBleedDefense = 0.1;
-    float SecondCreaturePoisoningDefense = 0;
+    float SecondCreatureHealthRegen = 0.06;
+    float SecondCreatureWeight = 75000;
+    float SecondCreatureBleedDefense = 0;
+    float SecondCreaturePoisoningDefense = 0.2;
     float SecondCreatureBurnDefense = 0;
     
     //defense
     float SecondCreatureThorns = 0;
     float SecondCreatureDefensiveBurn = 0;
-    float SecondCreaturePoison = 0;
+    float SecondCreaturePoison = 1.5;
     bool SecondCreatureHasRadiation = 0;
     
     //offense
-    int SecondCreatureDamage = 650;
+    int SecondCreatureDamage = 90;
     float SecondCreatureAttackSpeed = 1;
-    float SecondCreatureBleed = 3;
-    float SecondCreatureVenom = 2;
+    float SecondCreatureBleed = 2;
+    float SecondCreatureVenom = 0;
     float SecondCreatureBurn = 0;
+    bool SecondCreatureHasBerserk = false;
     
     
     if (FirstCreatureIsElder == true)
@@ -107,6 +109,11 @@ int main()
     int FirstCreatureDamageBeforeWeight = FirstCreatureDamage;
     int SecondCreatureDamageBeforeWeight = SecondCreatureDamage;
     
+    float FirstCreatureBaseAttackSpeed = FirstCreatureAttackSpeed;
+    float SecondCreatureBaseAttackSpeed = SecondCreatureAttackSpeed;
+    
+    
+    
     
     while (FirstCreatureHealth > 0 && SecondCreatureHealth > 0)
     {
@@ -115,6 +122,10 @@ int main()
         StatusTiming += 0.1;
         RegenTiming += 0.1;
         TimeElapsed += 0.1;
+        
+        
+        float FirstCreatureHealthPerc = 100 * FirstCreatureHealth / FirstCreatureMaxHealth;
+        float SecondCreatureHealthPerc = 100 * SecondCreatureHealth / SecondCreatureMaxHealth;
         
         
         float FirstCreatureWeightDifference = 0;
@@ -158,6 +169,17 @@ int main()
         }
         
         
+        if (FirstCreatureHasBerserk == true && FirstCreatureHealthPerc <= 20)
+        {
+            FirstCreatureAttackSpeed = FirstCreatureBaseAttackSpeed / 2;
+        }
+        
+        if (SecondCreatureHasBerserk == true && SecondCreatureHealthPerc <= 20)
+        {
+            SecondCreatureAttackSpeed = SecondCreatureBaseAttackSpeed / 2;
+        }
+        
+        
         if (FirstCreatureAttackSpeedTiming >= FirstCreatureAttackSpeed)
         {
             if (FirstCreatureIsAWarden == true)
@@ -173,7 +195,7 @@ int main()
                 }
                 FirstWardenDamageMulti = FirstWardenDamageMulti * FirstWardenHealthPerc;
                 FirstWardenDamageMulti++;
-                FirstCreatureHealth -= FirstCreatureDamage * FirstWardenDamageMulti;
+                SecondCreatureHealth -= FirstCreatureDamage * FirstWardenDamageMulti;
                 if (FirstCreatureIsElder == true)
                 {
                     cout << "Elder ";
@@ -393,9 +415,6 @@ int main()
             
             StatusTiming = 0;
         }
-        
-        float FirstCreatureHealthPerc = 100 * FirstCreatureHealth / FirstCreatureMaxHealth;
-        float SecondCreatureHealthPerc = 100 * SecondCreatureHealth / SecondCreatureMaxHealth;
         
         cout << FirstCreatureName << "'s Health: " << FirstCreatureHealth << " (~" << FirstCreatureHealthPerc << "%)\n";
         if (FirstCreatureBleedAmount > 0 || FirstCreaturePoisoningAmount > 0 || FirstCreatureBurnAmount > 0)
